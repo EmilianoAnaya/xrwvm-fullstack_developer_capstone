@@ -21,7 +21,11 @@ class CarModel(models.Model):
         ("CHEVROLET", "Chevrolet"),
     ]
 
-    type = models.CharField(choices=CAR_TYPES, default="CHEVROLET", max_length=20)
+    type = models.CharField(
+        choices=CAR_TYPES, 
+        default="CHEVROLET", 
+        max_length=20
+    )
     year = models.IntegerField(
         default=2023,
         validators=[

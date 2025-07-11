@@ -40,7 +40,12 @@ def registration(request):
     email = data['email']
     try:
         User.objects.get(username=username)
-        return JsonResponse({"userName": username, "error": "Already Registered"})
+        return JsonResponse(
+            {
+                "userName": username, 
+                "error": "Already Registered"
+            }
+        )
     except User.DoesNotExist:
         user = User.objects.create_user(
             username=username,
@@ -91,7 +96,12 @@ def add_review(request):
             post_review(data)
             return JsonResponse({"status": 200})
         except Exception as e:
-            return JsonResponse({"status": 401, "message": f"Error in posting review: {e}"})
+            return JsonResponse(
+                {
+                    "status": 401, 
+                    "message": f"Error in posting review: {e}"
+                }
+            )
     else:
         return JsonResponse({"status": 403, "message": "Unauthorized"})
 
@@ -100,5 +110,10 @@ def get_cars(request):
     if CarMake.objects.count() == 0:
         initiate()
     car_models = CarModel.objects.select_related('car_make')
-    cars = [{"CarModel": cm.name, "CarMake": cm.car_make.name} for cm in car_models]
+    cars = [
+        {
+            "CarModel": cm.name, 
+            "CarMake": cm.car_make.name
+        } for cm in car_models
+    ]
     return JsonResponse({"CarModels": cars})
