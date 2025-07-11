@@ -42,7 +42,7 @@ def registration(request):
         User.objects.get(username=username)
         return JsonResponse(
             {
-                "userName": username, 
+                "userName": username,
                 "error": "Already Registered"
             }
         )
@@ -98,7 +98,7 @@ def add_review(request):
         except Exception as e:
             return JsonResponse(
                 {
-                    "status": 401, 
+                    "status": 401,
                     "message": f"Error in posting review: {e}"
                 }
             )
@@ -112,7 +112,7 @@ def get_cars(request):
     car_models = CarModel.objects.select_related('car_make')
     cars = [
         {
-            "CarModel": cm.name, 
+            "CarModel": cm.name,
             "CarMake": cm.car_make.name
         } for cm in car_models
     ]
